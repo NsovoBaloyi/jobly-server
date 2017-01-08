@@ -1,4 +1,4 @@
-package com.jobly.rest;
+package com.job4sho.rest;
 
 /**
  * Created by Nsovo on 2016/12/23.

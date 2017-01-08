@@ -1,4 +1,4 @@
-package com.jobly.job;
+package com.job4sho.service.job;
 
 import org.springframework.stereotype.Service;
 

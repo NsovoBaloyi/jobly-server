@@ -1,4 +1,4 @@
-package com.jobly.review;
+package com.job4sho.service.review;
 
 import org.springframework.stereotype.Service;
 

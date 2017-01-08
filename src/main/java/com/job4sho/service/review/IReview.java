@@ -1,4 +1,4 @@
-package com.jobly.review;
+package com.job4sho.service.review;
 
 /**
  * Created by Nsovo on 2016/12/24.

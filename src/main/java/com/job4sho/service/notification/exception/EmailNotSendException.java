@@ -1,8 +1,13 @@
-package com.jobly.notification.exception;
+package com.job4sho.service.notification.exception;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
  * Created by Nsovo on 2016/12/23.
  */
+
+@ResponseStatus(value = HttpStatus.PRECONDITION_FAILED)
 public class EmailNotSendException extends Exception {
 
     public EmailNotSendException() {
