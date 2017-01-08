@@ -1,13 +1,15 @@
 package com.job4sho.service.notification;
 
-import com.job4sho.core.JoblyProperties;
+import com.job4sho.core.Job4ShoProperties;
 import com.job4sho.service.notification.exception.*;
 import com.job4sho.service.notification.request.*;
 import com.job4sho.service.notification.response.*;
+import lombok.extern.slf4j.Slf4j;
 import javax.inject.Inject;
 import javax.mail.internet.MimeMessage;
 
 import org.apache.commons.lang.CharEncoding;
+
 import org.springframework.context.MessageSource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -22,6 +24,7 @@ import java.util.Locale;
  */
 
 @Service
+@Slf4j
 public class NotificationImpl implements INotification {
 
     private static final String USER = "people";
@@ -37,7 +40,7 @@ public class NotificationImpl implements INotification {
     private SpringTemplateEngine templateEngine;
 
     @Inject
-    private JoblyProperties properties;
+    private Job4ShoProperties properties;
 
     @Override
     public SendEmailResponse sendEmail(SendEmailRequest request) throws EmailNotSendException {
@@ -106,14 +109,14 @@ public class NotificationImpl implements INotification {
 
     @Override
     public SendJobReminderNotificationResponse sendJobReminderNotification(SendJobReminderNotificationRequest request) throws EmailNotSendException{
-        log.debug("Sending job reminder email to '{}'", request.getUser().getEmail());
+        log.debug("Sending job reminder email to '{}'", request.getJob().getUser().getEmail());
         Locale locale = Locale.ENGLISH;
         Context context = new Context(locale);
-        context.setVariable(USER, request.getUser());
+        context.setVariable(USER, request.getJob().getUser());
         context.setVariable(BASE_URL, properties.getFrontend().getBaseUrl());
         String content = templateEngine.process("passwordResetEmail", context);
         String subject = messageSource.getMessage("email.reset.title", null, locale);
-        sendEmail(new SendEmailRequest(request.getUser().getEmail(), subject, content, false, true));
+        sendEmail(new SendEmailRequest(request.getJob().getUser().getEmail(), subject, content, false, true));
 
         return new SendJobReminderNotificationResponse();
     }
